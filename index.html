@@ -332,4 +332,104 @@
                     <!-- Filters -->
                     <div class="flex flex-wrap gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
                         <button onclick="filterHardware('all')" class="hw-filter-btn px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold">Semua</button>
-                        <button onclick="filterHardware('input')" class="hw-filter-
+                        <button onclick="filterHardware('input')" class="hw-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">Input</button>
+                            <button onclick="filterHardware('process')" class="hw-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">Proses</button>
+                        <button onclick="filterHardware('output')" class="hw-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">Output</button>
+                        <button onclick="filterHardware('storage')" class="hw-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white">Storage</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: RAKIT PC ================= -->
+        <section id="content-rakit" class="tab-content space-y-8 hidden">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800">
+                <h2 class="text-2xl font-black text-white mb-2">Simulasi Rakit PC & Booting</h2>
+                <p class="text-sm text-slate-400">Area untuk fitur perakitan PC dan simulasi booting sistem.</p>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: ARCADE ================= -->
+        <section id="content-arcade" class="tab-content space-y-8 hidden">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800">
+                <h2 class="text-2xl font-black text-white mb-2">CPU Data Rush Arcade</h2>
+                <p class="text-sm text-slate-400">Area game edukasi interaktif aliran data CPU.</p>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: KUIS ================= -->
+        <section id="content-kuis" class="tab-content space-y-8 hidden">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800">
+                <h2 class="text-2xl font-black text-white mb-2">Kuis & Sertifikat</h2>
+                <p class="text-sm text-slate-400">Uji pemahaman kamu dan dapatkan sertifikat kelulusan.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- SCRIPT UTAMA JS -->
+    <script>
+        // Switch Tab Function
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            const selectedContent = document.getElementById('content-' + tabId);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn text-xs sm:text-sm px-4 py-2 rounded-xl font-semibold text-slate-400 hover:text-cyan-300 hover:bg-slate-900/80 transition-all flex items-center space-x-2 whitespace-nowrap";
+            });
+
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn active text-xs sm:text-sm px-4 py-2 rounded-xl font-semibold transition-all flex items-center space-x-2 whitespace-nowrap bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold shadow-lg shadow-cyan-500/20";
+            }
+        }
+
+        // Toggle Audio
+        let isAudioOn = true;
+        function toggleAudio() {
+            isAudioOn = !isAudioOn;
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioStatusText');
+
+            if (isAudioOn) {
+                icon.className = "fa-solid fa-volume-high text-cyan-400";
+                text.textContent = "AUDIO: ON";
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-slate-500";
+                text.textContent = "AUDIO: OFF";
+            }
+        }
+
+        // Von Neumann Simulation
+        function runVonNeumannSimulation(type) {
+            const log = document.getElementById('diagram-log');
+            const stepBadge = document.getElementById('diagram-step-badge');
+
+            if (type === 'math') {
+                log.textContent = "Eksekusi Aritmatika: Memproses 5 + 8 di ALU...";
+                stepBadge.textContent = "STEP 1/3";
+            } else if (type === 'save') {
+                log.textContent = "Menyimpan Data: Mengirim paket data dari RAM ke Storage...";
+                stepBadge.textContent = "STEP 1/2";
+            } else if (type === 'render') {
+                log.textContent = "Tampil Layar: Mengirim sinyal visual ke Output Device...";
+                stepBadge.textContent = "STEP 1/2";
+            }
+        }
+
+        // Filter Hardware
+        function filterHardware(category) {
+            const buttons = document.querySelectorAll('.hw-filter-btn');
+            buttons.forEach(btn => {
+                btn.className = "hw-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white";
+            });
+            event.target.className = "hw-filter-btn px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold";
+        }
+    </script>
+</body>
+</html>
